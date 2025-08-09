@@ -1,12 +1,22 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Mozilla+Headline:wght@200..700&display=swap');
+
+/* 
+.App {
+    width: 100%;
+    height: 100vh;
+    float: left;
+        display: block;
+    border: 2px solid violet;
+} */
+
 .mainSection {
     display: flex;
     width: 100%;
-    border: 2px solid red;
     justify-content: center;
 }
 
 .leftSection {
-    border:2px solid green;
     width: 100%;
 }
 
@@ -14,49 +24,83 @@
     width: 100%;
 }
 
-/*-------------Product section----------------------------*/
-
-
-#dropdown-item-button {
-    color: red ;
+.container-fluid {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.itemContainer {
+.menuDropdown {
+     margin: 0 5em;
+}
 
+.navbar-collapse#billingNavbar {
+    width: 100px !important;
+
+}
+
+.navbar-brand {
+    padding: 0 2em;
+    /* font-weight: 500; */
+      font-family: "Mozilla Headline", sans-serif;
+
+}
+
+/*-------------Product section----------------------------*/
+.productSection {
+    border: 1px solid rgba(0, 0, 0, 0.192);
+}
+
+button#dropdown-item-button {
+   margin: 1em;
+    padding: 6px 26px;
+    font-size: 17px;
+}
+
+
+.itemContainer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap:10px;
-     
+    justify-content: center;
+    padding: 4px 0;
+      gap:4px;
+
 }
+
 .itemCard {
-    display: flex;
-    border: 2px solid red;
-      height: 100px;
-      width: 30%;
-      text-align: center;
-      justify-content: center;
-      align-items: flex-end;
-       opacity: 0.8;
-       cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; 
+  border: 0.2px solid rgba(73, 65, 65, 0.671);
+  height: 200px;
+  width: 32%;
+  text-align: center;
+  opacity: 0.8;
+  cursor: pointer;
+  /* box-shadow: 0 0 4px rgb(75, 187, 53); */
 
-}
-
-.itemCard p {
-    color: white;
-    margin: 0;
-}
-
-.itemCard  {
-   
 }
 
 .itemCard:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
-.itemCard:hover .itemCard p{
-    color: red;
+.itemName {
+  background: rgba(0, 0, 0, 0.6); 
+  width: 100%;
+  padding: 5px;
+}
+
+.itemName p {
+  color: white;
+  margin: 0;
+  font-weight: bold;
+}
+
+.itemCard:hover .itemName p {
+  color: red;
 }
 
 
@@ -66,19 +110,27 @@
 
 /*---------------Billing section------------------------------*/
 
+ul#justify-tab-example {
+   font-size: 25px;
+    font-weight: 500;
+}
+
 .billContainer {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding: 1px 4px;
+    margin: 0 10px;
 }
 
 .billItems {
-    border:2px solid red;
-    padding: 2px;
+    border:2px solid rgba(36, 33, 33, 0.233);
+    padding: 6px 2px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    border-radius: 20px;
 }
 
 .billingItemImage {
@@ -92,13 +144,11 @@
     width: 100%;
     height: 100%;
         border-radius: 50%;
-    border: 1px black;
 }
 
 .buttonContainer {
     display: flex;
     flex-direction: row;
-    border: 2px solid black;
     width: 20%;
     height: 100%;
     justify-content: space-around;
@@ -107,5 +157,29 @@
 
 #billingCloseButton {
     font-size: 14px;
+}
+
+.itemDetails {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 40%;
+}
+
+.itemAmount {
+    width: 10%;
+    text-align: center;
+
+}
+
+.billBtn {
+    padding: 8px 15px;
+    border-radius: 16px;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 700;
+    background: rgb(93, 207, 141);
+    color: white;
+    border: none;
 }
 /*---------------Billing section end ------------------------------*/
