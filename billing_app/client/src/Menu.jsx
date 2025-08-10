@@ -1,10 +1,15 @@
 import React from "react";
 
 function Menu() {
+
+  function refresh() {
+    window.location.reload();
+  }
+  
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#home">SnackWagon</a>
+        <a className="navbar-brand" href="#home" onClick={refresh}>SnackWagon</a>
         <button
           className="navbar-toggler"
           type="button"

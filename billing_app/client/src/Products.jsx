@@ -5,13 +5,12 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 function Products({product,addItem,setAddItem,dropdownSelect,setdropdownSelect,dropdownList}) {
 
     // const [addItem,setAddItem] = useState([])
+    
 
 
    function addToLocal(item) {
     const updatedItems = [...addItem, item];
     setAddItem(updatedItems);
-    // console.log(addItem);
-    // localStorage.setItem('selected_items', JSON.stringify(updatedItems));
 }
 
 
@@ -42,10 +41,10 @@ function changeDropdown(dropdownvalue) {
 // Item category is Shown here---------------------------------------Fix later
 
 
-console.log(`dropdown list is ${dropdownList}`);
+// console.log(`dropdown list is ${dropdownList}`);
 
   return (
-    <div className='productSection'>
+    <div className='productSection' >
 
         <DropdownButton id="dropdown-item-button" title={dropdownSelect}>
       {/* <Dropdown.ItemText>Dropdown item text</Dropdown.ItemText> */}
