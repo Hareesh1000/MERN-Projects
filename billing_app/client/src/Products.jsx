@@ -2,57 +2,65 @@ import React, { useEffect, useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
-function Products({product,addItem,setAddItem}) {
+function Products({product,addItem,setAddItem,dropdownSelect,setdropdownSelect,dropdownList}) {
 
     // const [addItem,setAddItem] = useState([])
+    
 
 
    function addToLocal(item) {
     const updatedItems = [...addItem, item];
     setAddItem(updatedItems);
-    // console.log(addItem);
-    // localStorage.setItem('selected_items', JSON.stringify(updatedItems));
 }
 
 
+// show all the proucts----------------------------------
 
-    const showProducts = product.map (
-        (item,index)=> (
-            <div className='itemCard' 
-            style={
-                {background:`url(${item.image_url})`,
-                                            backgroundPosition: "center",
-                                            backgroundSize: "fill", 
-                                            backgroundRepeat: "no-repeat",
-                                              visibility:""
-                    
-                  
-                                        }
-                                        
-                            }
-                    onClick={()=>{addToLocal(item.item_name)}}
-                           
-                                           >
-                     
-                      <a > <p> {item.item_name}</p>  </a>
-                     
-            </div>
-        )
-    )
+    const showProducts = product.map((item, index) => (
+  <div
+    className="itemCard"
+    style={{
+      background: `url(${item.image_url}) center / cover no-repeat`
+    }}
+    onClick={() => { addToLocal(item.item_name) }}
+    key={index}
+  >
+    <div className="itemName">
+      <p>{item.item_name}</p>
+    </div>
+  </div>
+));
 
+
+
+function changeDropdown(dropdownvalue) {
+    setdropdownSelect(dropdownvalue);
+
+}
+
+// Item category is Shown here---------------------------------------Fix later
+
+
+// console.log(`dropdown list is ${dropdownList}`);
 
   return (
-    <div>
+    <div className='productSection' >
 
-        <DropdownButton id="dropdown-item-button" title="Dropdown button">
+        <DropdownButton id="dropdown-item-button" title={dropdownSelect}>
       {/* <Dropdown.ItemText>Dropdown item text</Dropdown.ItemText> */}
-      <Dropdown.Item as="button">Action</Dropdown.Item>
-      <Dropdown.Item as="button">Another action</Dropdown.Item>
-      <Dropdown.Item as="button">Something else</Dropdown.Item>
+      {/* <Dropdown.Item as="button" onClick={(e)=>{changeDropdown('Action')}} >Action</Dropdown.Item>
+      <Dropdown.Item as="button" onClick={(e)=>{changeDropdown('Action')}}>Another action</Dropdown.Item>
+      <Dropdown.Item as="button" onClick={(e)=>{changeDropdown('Action')}}>Something else</Dropdown.Item> */}
+
+      {dropdownList.map(
+        (item,index)=> {
+          return <Dropdown.Item as="button" onClick={(e)=>{changeDropdown(item)}} >{item}</Dropdown.Item>
+        }
+      )}
     </DropdownButton>
 
         <div className='itemContainer'>
-    {showProducts}</div>
+    { (showProducts.length > 0) ? showProducts :<p style={{textAlign:"center",color:"red"}}>Server is not connected</p>}</div>
     </div>
   )
 }
