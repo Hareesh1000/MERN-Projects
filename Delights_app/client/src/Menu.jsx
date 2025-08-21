@@ -13,20 +13,20 @@ import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 
 
-
 export default function MenuBar() {
 
 
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    right: -5,
-    top: 5,
-    border: `2px solid ${(theme.vars ?? theme).palette.background.paper}`,
-    padding: '3px',
-    fontSize:'9px',
-    background:"red"
-  },
-}));
+
+  const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+      right: -5,
+      top: 5,
+      border: `2px solid ${(theme.vars ?? theme).palette.background.paper}`,
+      padding: '3px',
+      fontSize: '9px',
+      background: "red"
+    },
+  }));
 
   return (
     <div className="menu">

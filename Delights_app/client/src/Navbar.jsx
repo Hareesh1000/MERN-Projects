@@ -7,42 +7,61 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
+import { useEffect } from "react";
 
-export default function AlignItemsList() {
+import { useState } from 'react';
+import axios from 'axios'
+
+
+ function AlignItemsList() {
+
+   const url = "http://localhost:8000"
+
+  const [productType, setProductType] = useState([]);
+
+useEffect(() => {
+  axios.get(url)
+    .then(res => {
+      console.log(`product type is `,res.data);  
+      const data = res.data;
+      let products = data.map(
+        (item)=>(
+          item.product_type
+        )
+      );
+
+      products =  [... new Set(products)]
+
+      setProductType(products);
+      console.log(`Products are `,products)
+    })
+    .catch(error => console.log('Error', error));
+}, []);
+
   return (
-    <List sx={{ width: '100%', maxWidth: 300, bgcolor: '#f8f7f5' }}>
-      <ListItem alignItems="center">
+    <List sx={{ width: '100%', maxWidth: 300, bgcolor: '#f7e9cd98' }} className='menuList'>
+      {productType.map(
+        (item)=>(
+             <div className='menuListItems'>
+        <a >
+       <ListItem alignItems="center" >
         <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="https://bouqs.com/blog/wp-content/uploads/2022/03/shutterstock_260182148-min.jpg" />
+          <Avatar alt={item} src="/static/images/avatar/1.jpg" />
         </ListItemAvatar>
         <ListItemText
-          primary="Brunch this weekend?"
+          primary={item}
         />
       </ListItem>
       <Divider variant="inset" component="li" />
+    </a>
 
-       <ListItem alignItems="center">
-        <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Brunch this weekend?"
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-
-       <ListItem alignItems="center">
-        <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Brunch this weekend?"
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-
+      </div>
+        )
+      )
+      }    
       
     </List>
   );
 }
 
+export default AlignItemsList;

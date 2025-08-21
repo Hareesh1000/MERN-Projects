@@ -81,6 +81,26 @@
     margin-left: 2em;
 }
 
+
+.menuList {
+    text-align: center;
+}
+.menuListItems {
+    cursor: pointer;
+    width: auto;
+    background-color: #fffcf6;
+    margin: 0 1em;
+
+}
+
+.menuListItems ListItemText{
+     margin: 0 1em;
+}
+
+.menuListItems:hover {
+    background-color: rgb(226, 240, 223);
+}
+
 /* ----------------NavBar---------end----- */
 
 .main {
@@ -90,6 +110,8 @@
     align-items: flex-start;
     gap:10px
 }
+
+
 
 
 /* -------Item Card------------------------- */
