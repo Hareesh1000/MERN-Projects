@@ -1,0 +1,20 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Delights app",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "nodemon server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "material-ui-popup-state": "^5.3.6",
+    "mongoose": "^8.17.2",
+    "nodemon": "^3.1.10"
+  }
+}
