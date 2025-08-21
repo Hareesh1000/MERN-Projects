@@ -96,8 +96,8 @@ useEffect(() => {
                   <Typography gutterBottom variant="p" component="div" id='Card-Product-name'>
                     {item.product_name}
                   </Typography>
-                  <p> Veg</p>
-                  <p className='price'>Rs {item.price}</p>
+                  {/* <p> Veg</p> */}
+                  <p className='price'>₹ {item.price}</p>
 
                   {addBtnState.includes(item.product_name) && changeCount > 0 ? <div className='itemCountButton'>
                     <button onClick={() => { addRemoveItem('DECREMENT', item.name) }}> -</button>

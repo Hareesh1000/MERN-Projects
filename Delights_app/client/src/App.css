@@ -6,6 +6,7 @@
     margin: -1em 0;
     padding: 0;
     z-index: 1;
+    max-width: 100%;
     
 }
 .menuBar {
@@ -37,6 +38,16 @@
     scale: 1.3;
 }
 
+#long-button{
+    color: white;
+    margin: 0 1em;
+   
+}
+.basicMenu {
+    color: white !important;
+    border: 2px solid red;
+    background-color: red;
+}
 
 /*--Home-------------------------------------------*/
 
@@ -135,5 +146,38 @@
 
 #addToCart {
     
+}
+
+
+.itemCountButton {
+  display: flex;
+  flex-direction: row;
+  gap:8px;
+
+     justify-content: flex-start;
+     align-items: center;
+     margin: 1 0em;
+
+}
+
+.itemCountButton button {
+  padding: 5px 20px;
+  font-size: larger;
+  color: white;
+  
+   background: rgb(15, 126, 11);
+   border-radius: 5px;
+   width:30%;
+   height: 30%;
+   border: none;
+}
+
+.itemCountButton button:hover{
+      color: white;
+}
+
+.itemCountButton p {
+    font-size: 20px;
+     margin: 0;
 }
 /* -------Item Card--------------------end1----- */
