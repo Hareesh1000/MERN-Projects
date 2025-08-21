@@ -22,7 +22,7 @@ import axios from 'axios'
 useEffect(() => {
   axios.get(url)
     .then(res => {
-      console.log(`product type is `,res.data);  
+      // console.log(`product type is `,res.data);  
       const data = res.data;
       let products = data.map(
         (item)=>(
@@ -33,7 +33,7 @@ useEffect(() => {
       products =  [... new Set(products)]
 
       setProductType(products);
-      console.log(`Products are `,products)
+      // console.log(`Products are `,products)
     })
     .catch(error => console.log('Error', error));
 }, []);

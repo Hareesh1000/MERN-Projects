@@ -1,6 +1,5 @@
-import React from 'react'
-import { useState } from 'react';
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -10,81 +9,64 @@ import Typography from '@mui/material/Typography';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 import NavBar from './Navbar';
-import { useEffect } from 'react';
 
-function Home() {
+function Home({setCartItemCount}) {
+  const [products, setProducts] = useState([]);  // products from the database
+  const [cart, setCart] = useState({});  
 
-  const [products, setProducts] = useState([]);
+  const url = "http://localhost:8000";
 
-
-
-   const [addBtnState, setBtnState] = useState([]);
-
-  const [changeCount, setChangeCount] = useState(0);
-
-
-  const url = "http://localhost:8000"
-
-  // Getting data here--------------------------------------------------------------------
-useEffect(() => {
-  axios.get(url)
-    .then(res => {
-      console.log(res.data);  
-      setProducts(res.data);
-    })
-    .catch(error => console.log('Error', error));
-}, []);
+  // Get data here----------------------
+  useEffect(() => {
+    axios.get(url)
+      .then(res => {
+        setProducts(res.data);
+      })
+      .catch(error => console.log('Error', error));
+  }, []);
 
 
-
-  // useEffect(
-  //   ()=>{
-  //       axios.get(url||'menuTypes')  
-
-  //   },[productType]
-  // )
-  
- 
+  const addItems = (product_id) => {
+    setCart(prev => ({
+      ...prev,
+      [product_id]: 1
+    }));
+  };
 
 
-  const showitemCountButton = (itemName) => {
-    setBtnState(
-      (prevState) => { return [...prevState, itemName] }
-    )
+  // Increment / Decrement -------------
+  const addRemoveItem = (action, product_id) => {
+    setCart(prev => {
+      const currentCount = prev[product_id] || 0;
 
-    setChangeCount(changeCount + 1);
+      if (action === 'INCREMENT') {
+        return { ...prev, [product_id]: currentCount + 1 };
+      } 
+      else if (action === 'DECREMENT') {
+        return { ...prev, [product_id]: currentCount - 1 };
+      }
+      return prev;
+    });
+  };
 
-  }
+  useEffect(() => {
+    const countCart = Object.keys(cart)
+    // console.log("Cart state:", cart);
+    //  console.log("Cart length:", countCart.length);
+    setCartItemCount(countCart.length)
+  }, [cart]);
 
-  const addRemoveItem = (itemState, itemName) => {
-
-    if (itemState == 'INCREMENT') {
-      setChangeCount(changeCount + 1);
-    }
-
-    else if (itemState == 'DECREMENT') {
-      setChangeCount(changeCount - 1);
-    }
-
-  }
-// -----------------------------------------------------------------------------------
   return (
     <div className='Home'>
-
       <div className="navbar">
-        <NavBar></NavBar>
+        <NavBar />
       </div>
-      {/* ----- Main section */}
-
-
 
       <div className="main">
-
-        {products.map(
-          (item, index) => (
-
-            <div className="itemCard">
-
+        {products.map((item) => {
+          const count = cart[item.product_id] || 0;
+          return (
+            <div className="itemCard" key={item.product_id}>
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                   component="img"
@@ -96,49 +78,32 @@ useEffect(() => {
                   <Typography gutterBottom variant="p" component="div" id='Card-Product-name'>
                     {item.product_name}
                   </Typography>
-                  {/* <p> Veg</p> */}
                   <p className='price'>₹ {item.price}</p>
 
-                  {addBtnState.includes(item.product_name) && changeCount > 0 ? <div className='itemCountButton'>
-                    <button onClick={() => { addRemoveItem('DECREMENT', item.name) }}> -</button>
-                    <p>{changeCount}</p>
-                    <button onClick={() => { addRemoveItem('INCREMENT', item.name) }}> +</button>
-                  </div>
-                    :
-                    <Button variant="contained" color="success" id={item.product_name} onClick={() => { showitemCountButton(item.product_name) }} startIcon={<AddShoppingCartIcon />}>
+                  {count > 0 ? (
+                    <div className='itemCountButton'>
+                      <button onClick={() => addRemoveItem('DECREMENT', item.product_id)}> - </button>
+                      <p>{count}</p>
+                      <button onClick={() => addRemoveItem('INCREMENT', item.product_id)}> + </button>
+                    </div>
+                  ) : (
+                    <Button 
+                      variant="contained" 
+                      color="success" 
+                      onClick={() => addItems(item.product_id)} 
+                      startIcon={<AddShoppingCartIcon />}
+                    >
                       Add to cart
                     </Button>
-
-                  }
-
+                  )}
                 </CardContent>
-                {/* <CardActions>
-            <Button size="small">Share</Button>
-            <Button size="small">Learn More</Button>
-          </CardActions> */}
               </Card>
             </div>
-
-          )
-
-        )}
-
-
-
+          );
+        })}
       </div>
-
-
-
-
-      {/* ---- End of Main */}
-
     </div>
-  )
+  );
 }
 
-export default Home
-
-
-
-
-
+export default Home;
