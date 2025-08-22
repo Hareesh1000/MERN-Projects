@@ -76,6 +76,8 @@ function MenuBar({cartItemCount}) {
               color="inherit"
               id="signinButton"
               startIcon={<AccountCircleIcon />}
+             component={Link} to='/signin'
+
             >
               Sign In
             </Button>
