@@ -10,9 +10,9 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 import NavBar from './Navbar';
 
-function Home({setCartItemCount}) {
+function Home({setorderCount,setOrder}) {
   const [products, setProducts] = useState([]);  // products from the database
-  const [cart, setCart] = useState({});  
+  const [cart, setCart] = useState({});  //For Cart count
 
   const url = "http://localhost:8000";
 
@@ -50,10 +50,27 @@ function Home({setCartItemCount}) {
   };
 
   useEffect(() => {
-    const countCart = Object.keys(cart)
+
+    console.log(`Product data is`,products);    
+    //setOrder(cart)   /// Adding cart items here to view from the cart
+    const productIds = Object.keys(cart);
+    const selectedProducts = products.filter(
+      (item)=>{
+          return( productIds.includes(item.product_id.toString()))
+      }
+    )
+    // console.log("productIds state:", productIds);
     // console.log("Cart state:", cart);
-    //  console.log("Cart length:", countCart.length);
-    setCartItemCount(countCart.length)
+    // console.log("selectedProducts state:", selectedProducts);
+    const orderedItems = selectedProducts.map(
+      (item)=>{
+        return( {...item,"order_qty":cart[item.product_id.toString()]})
+      }
+    )
+    setOrder(orderedItems)
+    //cart count to menu
+    setorderCount(productIds.length);
+ 
   }, [cart]);
 
   return (

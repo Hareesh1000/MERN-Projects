@@ -1,12 +1,26 @@
 import React from 'react'
 import './AccountStyle.css'
+import Avatar from '@mui/material/Avatar';
+import { Link } from 'react-router-dom';
 
 function MyAccount() {
   return (
     <div className='myAccount'>
 
       <div className='myaccountMain'>
-        <h1>Account</h1>
+        <div className='account-head'>
+
+          <h1>My Account</h1>
+            <div className='account-user'>
+                <Avatar alt="Guest name" src="/static/images/avatar/1.jpg" />
+          <h4> Guest</h4>
+          {/* <a href=''>sign in</a> */}
+          <Link to='/signin'>Login</Link>
+            </div>
+         
+
+        </div>
+
         <div className='accountCards'>
 
           <div className='acc-card'>
@@ -16,10 +30,10 @@ function MyAccount() {
               ></img>
             </div>
             <div className='card-content'>
-               <h3> Your order</h3>
-            <p> Track your order</p>
+              <h3> Your order</h3>
+              <p> Track your order</p>
             </div>
-          
+
           </div>
 
           <div className='acc-card'>
@@ -29,10 +43,10 @@ function MyAccount() {
               ></img>
             </div>
             <div className='card-content'>
-               <h3> Your Address</h3>
-            <p> Change your address</p>
+              <h3> Your Address</h3>
+              <p> Change your address</p>
             </div>
-          
+
           </div>
 
           <div className='acc-card'>
@@ -42,10 +56,10 @@ function MyAccount() {
               ></img>
             </div>
             <div className='card-content'>
-               <h3> Login & Security</h3>
-            <p> Edit login,name, and mobile number</p>
+              <h3> Login & Security</h3>
+              <p> Edit login,name, and mobile number</p>
             </div>
-          
+
           </div>
 
           <div className='acc-card'>
@@ -55,12 +69,12 @@ function MyAccount() {
               ></img>
             </div>
             <div className='card-content'>
-               <h3>Payment options</h3>
-            <p> Edit or add payment options</p>
+              <h3>Payment options</h3>
+              <p> Edit or add payment options</p>
             </div>
-          
+
           </div>
-        
+
         </div>
 
       </div>

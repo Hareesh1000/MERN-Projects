@@ -20,7 +20,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 
-function MenuBar({cartItemCount}) {
+function MenuBar({orderCount}) {
 
   
   // -----------cart menu---------------------------   cart menu is disabled, need to develop later
@@ -90,12 +90,13 @@ function MenuBar({cartItemCount}) {
                   color="inherit"
                   id="cart"
                   onClick={handleCartClick}
+                    component={Link} to='/cart'
                   sx={{ ml: 2 }}
                   aria-controls={cartOpen ? "cart-menu" : undefined}
                   aria-haspopup="true"
                   aria-expanded={cartOpen ? "true" : undefined}
                 >
-                  <StyledBadge badgeContent={cartItemCount} color="secondary">
+                  <StyledBadge badgeContent={orderCount} color="secondary">
                     <ShoppingCartIcon />
                   </StyledBadge>
                 </IconButton>
