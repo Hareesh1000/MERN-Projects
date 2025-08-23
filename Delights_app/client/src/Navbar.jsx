@@ -13,7 +13,7 @@ import { useState } from 'react';
 import axios from 'axios'
 
 
- function AlignItemsList() {
+ function AlignItemsList({setFilteredProduct}) {
 
    const url = "http://localhost:8000"
 
@@ -43,6 +43,26 @@ useEffect(() => {
 
 /// Get only selected data ---------
 
+// useEffect(
+//   ()=>{
+//     try{
+//         if(changeProduct){
+//            axios.get(`http://localhost:8000/product-type/${changeProduct}`)
+//      .then((res) => {
+//        const data = res.data;
+//     const products = data.map(item => item.product_name); 
+//     const newData = [...new Set(products)];
+//     setProductType(newData);
+//     console.log("data is", res.data);
+//         })
+//         }
+//     }
+//     catch(error){
+//       console.log(`Error while fetching product type ${error}`)
+//     }
+//   },[changeProduct]
+// );
+
 useEffect(
   ()=>{
         console.log(`Selected product is `,changeProduct);
@@ -54,7 +74,7 @@ useEffect(
   return (
     <List sx={{ width: '100%', maxWidth: 300, bgcolor: '#f7e9cd98' }} className='menuList'>
        <div className='menuListItems'>
-        <a >
+        <a onClick={()=>{setFilteredProduct('ALL')}}>
        <ListItem alignItems="center" >
         <ListItemAvatar>
           <Avatar alt='All' src="/static/images/avatar/1.jpg" />
@@ -71,7 +91,7 @@ useEffect(
       {productType.map(
         (item,index)=>(
              <div className='menuListItems' key={index}>
-        <a onClick={()=>{setChangeProduct(item)}}>
+        <a onClick={()=>{setFilteredProduct(item)}}>
        <ListItem alignItems="center" >
         <ListItemAvatar>
           <Avatar alt={item} src="/static/images/avatar/1.jpg" />

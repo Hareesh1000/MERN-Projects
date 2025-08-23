@@ -1,10 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import loginImage from '../assets/Images/login_image.jpg'
 import '../assets/CSS/style_signin.css'
 import { Link } from 'react-router-dom'
 import { TextField, Button, Typography, Box, Card, CardContent } from '@mui/material'
+import axios from 'axios'
 
 function SignIn() {
+// http://localhost:8000/signin/signin-user
+
+ const[userEmail,setUserEmail] = useState('');
+ const[password,setpassword]  = useState('');
+
+const[isAuthenticated,setAuthStatus] = useState(false);
+
+function authUser(){
+      const data = {"email":userEmail,"password":userEmail}
+    axios.post('http://localhost:8000/signin/signin-user',data)
+    .then(
+      (res)=>{
+        //   console.log(res.status);
+        // console.log(res.data.authenticate);
+        if(res.data.authenticate){
+          console.log(`User Authenticated`)
+          setAuthStatus(true)
+          localStorage.setItem('Login',JSON.stringify({user_authenticated:true}))
+        }
+      }
+    )
+    .catch(err=>console.log(`Error:`,err))
+  
+
+}
+
+
   return (
     <div className="hero_section1">
 
@@ -30,6 +58,8 @@ function SignIn() {
                 label="Email Address"
                 type="email"
                 variant="outlined"
+                value={userEmail}
+                onChange={(e)=>{setUserEmail(e.target.value)}}
                 fullWidth
                 required
               />
@@ -38,11 +68,14 @@ function SignIn() {
                 type="password"
                 variant="outlined"
                 fullWidth
+                value={password}
+                onChange={(e)=>{setpassword(e.target.value)}}
                 required
               />
 
               {/* Login Button */}
-              <Button variant="contained" color="primary" fullWidth sx={{ mt: 1, py: 1.5, borderRadius: 2 }}>
+              <Button variant="contained" color="primary" fullWidth sx={{ mt: 1, py: 1.5, borderRadius: 2 }}
+              onClick={()=>{authUser()}}>
                 SIGN IN
               </Button>
             </Box>

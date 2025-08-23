@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-function Cart({  }) {
+function Cart() {
   const [order, setOrder] = useState([]);
   const [orderTotal, setOrderTotal] = useState(0);   /// for total
   const [orderVisibility, setOrderVisibility] = useState("visible");
@@ -15,7 +15,7 @@ function Cart({  }) {
 //get data
 useEffect(
     ()=>{
-            // console.log(`Placed ordered is `,placeOrder);
+           
             const data = localStorage.getItem('order');
             setOrder(JSON.parse(data))
     },[]
@@ -25,7 +25,10 @@ useEffect(
     const total = order.reduce(
         (sum, item) => sum + item.order_qty * item.price, 0);
     setOrderTotal(total);
-    localStorage.setItem('order',JSON.stringify(order));
+
+    // if(order){
+    //   localStorage.setItem('order',JSON.stringify(order));
+    // }
   }, [order]);
 
 //   const increaseQty = (index) => {
@@ -65,17 +68,19 @@ function changeqty(index,operation) {
         }
     }
 }
-
+///Submit the order --------
   function completeOrder() {
+    localStorage.setItem('order',JSON.stringify(order));
     const neworder = [{ order: order, total_spent: orderTotal }];
 
-    axios
-      .post('http://localhost:8000', { order: neworder })
+    axios.post('http://localhost:8000/cart',neworder)
       .then((response) => {
         console.log('Order completed:', response.data);
+        alert(`order Completed status code ${response.data}`)
       })
       .catch((error) => {
         console.error('Error completing order:', error);
+        alert(`order failed ${error.data}`)
       });
 
     setOrderVisibility('hidden');

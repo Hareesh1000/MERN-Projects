@@ -12,7 +12,9 @@ import NavBar from './Navbar';
 
 function Home({setorderCount,setOrder}) {
   const [products, setProducts] = useState([]);  // products from the database
-  const [cart, setCart] = useState({});  //For Cart count
+  const [filteredProduct,setFilteredProduct] = useState('');
+  const [cart, setCart] = useState({});  //For Cart count   /// Adding to cart
+
 
   const url = "http://localhost:8000";
 
@@ -26,12 +28,38 @@ function Home({setorderCount,setOrder}) {
   }, []);
 
 
+  // Get filtered data
+  useEffect(
+    ()=>{
+
+      if (filteredProduct ==='ALL'){
+        axios.get(url)
+      .then(res => {
+        setProducts(res.data);
+      })
+      }
+        
+      if(filteredProduct){
+        axios.get(`http://localhost:8000/product-type/${filteredProduct}`)
+        .then(
+          (res)=>{
+            const filteredData = res.data;
+            console.log(filteredData);
+            setProducts(filteredData);
+
+          }
+        )
+      }
+    },[filteredProduct]
+  )
+
   const addItems = (product_id) => {
     setCart(prev => ({
       ...prev,
       [product_id]: 1
     }));
   };
+
 
 
   // Increment / Decrement -------------
@@ -58,15 +86,22 @@ function Home({setorderCount,setOrder}) {
       (item)=>{
           return( productIds.includes(item.product_id.toString()))
       }
+    );
+
+    const urlRemovedProducts = selectedProducts.map(
+      ({product_image,...others})=>{
+          return others
+      }
     )
 
-    const orderedItems = selectedProducts.map(
+    const orderedItems = urlRemovedProducts.map(
       (item)=>{
         return( {...item,"order_qty":cart[item.product_id.toString()]})
       }
     )
     //  method to send the data through props
     // setOrder(orderedItems)
+    
 
     localStorage.setItem('order',JSON.stringify(orderedItems));
 
@@ -80,7 +115,7 @@ function Home({setorderCount,setOrder}) {
   return (
     <div className='Home'>
       <div className="navbar">
-        <NavBar />
+        <NavBar setFilteredProduct={setFilteredProduct}/>
       </div>
 
       <div className="main">
