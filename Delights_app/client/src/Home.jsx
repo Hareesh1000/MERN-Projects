@@ -48,7 +48,7 @@ function Home({setorderCount,setOrder}) {
       return prev;
     });
   };
-
+/// Adding products to cart-----
   useEffect(() => {
 
     console.log(`Product data is`,products);    
@@ -59,15 +59,19 @@ function Home({setorderCount,setOrder}) {
           return( productIds.includes(item.product_id.toString()))
       }
     )
-    // console.log("productIds state:", productIds);
-    // console.log("Cart state:", cart);
-    // console.log("selectedProducts state:", selectedProducts);
+
     const orderedItems = selectedProducts.map(
       (item)=>{
         return( {...item,"order_qty":cart[item.product_id.toString()]})
       }
     )
-    setOrder(orderedItems)
+    //  method to send the data through props
+    // setOrder(orderedItems)
+
+    localStorage.setItem('order',JSON.stringify(orderedItems));
+
+    const data = localStorage.getItem('order');
+    console.log(`data is `,data);
     //cart count to menu
     setorderCount(productIds.length);
  

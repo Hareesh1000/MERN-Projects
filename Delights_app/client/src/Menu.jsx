@@ -143,7 +143,7 @@ function MenuBar({orderCount}) {
             </Menu> */}
 
             {/* ACCOUNT BUTTON + MENU */}
-            <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+            <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" ,margin:"0 0.5em"}}>
               <Tooltip title="Account settings">
                 <IconButton
                   onClick={handleAccountClick}

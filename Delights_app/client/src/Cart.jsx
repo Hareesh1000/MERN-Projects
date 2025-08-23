@@ -7,22 +7,25 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-function Cart({ placeOrder }) {
-  const [order, setOrder] = useState(placeOrder || []);
+function Cart({  }) {
+  const [order, setOrder] = useState([]);
   const [orderTotal, setOrderTotal] = useState(0);   /// for total
   const [orderVisibility, setOrderVisibility] = useState("visible");
 
-
+//get data
 useEffect(
     ()=>{
-            console.log(`Placed ordered is `,placeOrder);
-    },[placeOrder]
+            // console.log(`Placed ordered is `,placeOrder);
+            const data = localStorage.getItem('order');
+            setOrder(JSON.parse(data))
+    },[]
 )
 
   useEffect(() => {
     const total = order.reduce(
         (sum, item) => sum + item.order_qty * item.price, 0);
     setOrderTotal(total);
+    localStorage.setItem('order',JSON.stringify(order));
   }, [order]);
 
 //   const increaseQty = (index) => {

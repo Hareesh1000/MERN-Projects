@@ -19,6 +19,9 @@ import axios from 'axios'
 
   const [productType, setProductType] = useState([]);
 
+  const [changeProduct,setChangeProduct]  = useState('');
+
+  /// Get all data
 useEffect(() => {
   axios.get(url)
     .then(res => {
@@ -38,12 +41,37 @@ useEffect(() => {
     .catch(error => console.log('Error', error));
 }, []);
 
+/// Get only selected data ---------
+
+useEffect(
+  ()=>{
+        console.log(`Selected product is `,changeProduct);
+  },[changeProduct]
+)
+
+
+
   return (
     <List sx={{ width: '100%', maxWidth: 300, bgcolor: '#f7e9cd98' }} className='menuList'>
-      {productType.map(
-        (item)=>(
-             <div className='menuListItems'>
+       <div className='menuListItems'>
         <a >
+       <ListItem alignItems="center" >
+        <ListItemAvatar>
+          <Avatar alt='All' src="/static/images/avatar/1.jpg" />
+        </ListItemAvatar>
+        <ListItemText
+          primary='All'
+        />
+      </ListItem>
+      <Divider variant="inset" component="li" />
+    </a>
+
+      </div>
+    
+      {productType.map(
+        (item,index)=>(
+             <div className='menuListItems' key={index}>
+        <a onClick={()=>{setChangeProduct(item)}}>
        <ListItem alignItems="center" >
         <ListItemAvatar>
           <Avatar alt={item} src="/static/images/avatar/1.jpg" />
