@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router';
 import Home from './Home'
 import Menu from './Menu'
@@ -9,25 +9,41 @@ import ForgotPassword from './userLogin/ForgotPassword';
 import Cart from './Cart'
 import { useState } from 'react';
 import axios from 'axios'
+import OrderSuccess from './OrderSuccess';
 
 function AppRouter() {
 
   const[orderCount,setorderCount] = useState(0);  
   const[order,setOrder] = useState([]);    // Product details
+   const [isAuthenticated, setAuthStatus] = useState(false);
 
-  console.log(`cart item count in router is ` ,orderCount);
-    console.log(`cart item  order is ` ,order);
+   useEffect(
+    ()=>{
+        const data = localStorage.getItem('Login');
+        const sessionStatus = JSON.parse(data);
+        if (sessionStatus){
+           if(sessionStatus.user_authenticated){
+          setAuthStatus(true)
+        }
+
+        }
+       
+
+    },[]
+   )
+
 
   return (
     <div className='appMain'>
-        <Menu orderCount={orderCount}></Menu>
+        <Menu orderCount={orderCount} isAuthenticated={isAuthenticated}setAuthStatus={setAuthStatus}></Menu>
         <Routes>
-            <Route path='/' element={<Home setorderCount={setorderCount} setOrder={setOrder}></Home>}></Route>
-            <Route path='/my-account' element={<MyAccount></MyAccount>}></Route>
-            <Route path='/signin' element={<SignIn></SignIn>} ></Route>
-            <Route path='/sign-up' element={<SignUp></SignUp>} ></Route>
+            <Route path='/' element={<Home setorderCount={setorderCount} setOrder={setOrder} isAuthenticated={isAuthenticated}></Home>}></Route>
+            <Route path='/my-account' element={<MyAccount isAuthenticated={isAuthenticated}></MyAccount>}></Route>
+            <Route path='/signin' element={<SignIn setAuthStatus={setAuthStatus} ></SignIn>} ></Route>
+            <Route path='/sign-up' element={<SignUp setAuthStatus={setAuthStatus}></SignUp>} ></Route>
             <Route path='/forgot-password' element={<ForgotPassword></ForgotPassword>}></Route>
-            <Route path='/cart' element={<Cart placeOrder = {order} ></Cart>}></Route>
+            <Route path='/cart' element={<Cart placeOrder = {order} isAuthenticated={isAuthenticated}></Cart>}></Route>
+            <Route path='/cart/order-placed' element={<OrderSuccess></OrderSuccess>}></Route>
         </Routes>
         
 

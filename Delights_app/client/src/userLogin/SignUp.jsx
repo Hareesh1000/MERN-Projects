@@ -1,10 +1,46 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 import signupImage from '../assets/Images/signup.jpg'
 import '../assets/CSS/style_signup.css'
 import { Link } from 'react-router-dom'
 import { TextField, Button, Typography, Box, Card, CardContent } from '@mui/material'
+import axios from 'axios'
 
-function SignUp() {
+function SignUp({setAuthStatus}) {
+     const[username,setusername] = useState('');
+     const[userEmail,setUserEmail] = useState('');
+     const[password,setpassword]  = useState('');
+    const[confirmpwd,setconfirmpwd]  = useState('');
+    const navigate = useNavigate();
+const signUpUser = ()=>{
+
+        // console.log(`Signup`,username,userEmail)
+
+        const data =  { "user_name":username, "mail_id":userEmail, "password":password, "address":null }
+
+        axios.post('http://localhost:8000/user/signup',data)
+        .then(
+          (res)=>{
+        if(res.data.authenticate){
+            localStorage.clear();
+          console.log(`User created`)
+          setAuthStatus(true)
+          localStorage.setItem('Login',JSON.stringify({user_authenticated:true}));
+           localStorage.setItem('user',JSON.stringify(res.data))
+           setAuthStatus(true);
+          navigate('/');
+          alert(`User Signed up successfully`)
+        }
+        else {
+           setAuthStatus(false);
+           alert(`Falied to Sign up`)
+         
+        }
+      }
+        )
+}
+
     return (
         <div className="hero_section2" >
             
@@ -31,6 +67,7 @@ function SignUp() {
                                 variant="outlined"
                                 fullWidth
                                 required
+                                onChange={(e)=>{setusername(e.target.value)}}
                             />
                             <TextField
                                 label="Email Address"
@@ -38,13 +75,15 @@ function SignUp() {
                                 variant="outlined"
                                 fullWidth
                                 required
+                                onChange={(e)=>{setUserEmail(e.target.value)}}
                             />
                             <TextField
-                                label="New Password"
+                                label="Password"
                                 type="password"
                                 variant="outlined"
                                 fullWidth
                                 required
+                                onChange={(e)=>{setpassword(e.target.value)}}
                             />
                             <TextField
                                 label="Confirm Password"
@@ -52,10 +91,11 @@ function SignUp() {
                                 variant="outlined"
                                 fullWidth
                                 required
+                                onChange={(e)=>{setconfirmpwd(e.target.value)}}
                             />
 
                             {/* Signup Button */}
-                            <Button variant="contained" color="primary" fullWidth sx={{ mt: 1, py: 1.5, borderRadius: 2 }}>
+                            <Button variant="contained" color="primary" fullWidth sx={{ mt: 1, py: 1.5, borderRadius: 2 }} onClick={signUpUser}>
                                 SIGN UP
                             </Button>
                         </Box>

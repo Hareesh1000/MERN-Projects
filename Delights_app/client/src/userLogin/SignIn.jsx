@@ -1,21 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import loginImage from '../assets/Images/login_image.jpg'
 import '../assets/CSS/style_signin.css'
-import { Link } from 'react-router-dom'
-import { TextField, Button, Typography, Box, Card, CardContent } from '@mui/material'
+import { Link,useNavigate } from 'react-router-dom'
+import { TextField, Button, Typography, Box, Card, CardContent, colors } from '@mui/material'
 import axios from 'axios'
 
-function SignIn() {
+
+function SignIn({setAuthStatus}) {
 // http://localhost:8000/signin/signin-user
+const navigate = useNavigate()
 
  const[userEmail,setUserEmail] = useState('');
  const[password,setpassword]  = useState('');
 
-const[isAuthenticated,setAuthStatus] = useState(false);
+
+  const [authMessage, setAuthMessage] = useState('');
+  const [authColor, setAuthColor] = useState('');
 
 function authUser(){
       const data = {"email":userEmail,"password":userEmail}
-    axios.post('http://localhost:8000/signin/signin-user',data)
+    axios.post('http://localhost:8000/user/signin-user',data)
     .then(
       (res)=>{
         //   console.log(res.status);
@@ -23,15 +27,25 @@ function authUser(){
         if(res.data.authenticate){
           console.log(`User Authenticated`)
           setAuthStatus(true)
-          localStorage.setItem('Login',JSON.stringify({user_authenticated:true}))
+          localStorage.setItem('Login',JSON.stringify({user_authenticated:true}));
+           localStorage.setItem('user',JSON.stringify(res.data))
+
+           setAuthStatus(true);
+          setAuthMessage("Authenticated");
+          setAuthColor("green");
+          navigate('/');
+        }
+        else {
+           setAuthStatus(false);
+          setAuthMessage("Invalid Username or Password");
+          setAuthColor("red");
         }
       }
     )
     .catch(err=>console.log(`Error:`,err))
   
 
-}
-
+};
 
   return (
     <div className="hero_section1">
@@ -72,6 +86,10 @@ function authUser(){
                 onChange={(e)=>{setpassword(e.target.value)}}
                 required
               />
+
+           <Typography variant="body2" align="center" sx={{ mt: 2 }} style={{color:authColor}}>
+            {authMessage}
+            </Typography>
 
               {/* Login Button */}
               <Button variant="contained" color="primary" fullWidth sx={{ mt: 1, py: 1.5, borderRadius: 2 }}

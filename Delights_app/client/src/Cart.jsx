@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Cart.css';
 import Button from '@mui/material/Button';
@@ -7,10 +8,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-function Cart() {
+function Cart({isAuthenticated}) {
   const [order, setOrder] = useState([]);
   const [orderTotal, setOrderTotal] = useState(0);   /// for total
   const [orderVisibility, setOrderVisibility] = useState("visible");
+  const navigate = useNavigate();
 
 //get data
 useEffect(
@@ -18,8 +20,16 @@ useEffect(
            
             const data = localStorage.getItem('order');
             setOrder(JSON.parse(data))
+
+            if(isAuthenticated ==false){
+              navigate('/')
+                  alert('Login to view the cart');
+                  
+            }
     },[]
-)
+);
+
+
 
   useEffect(() => {
     const total = order.reduce(
@@ -76,7 +86,8 @@ function changeqty(index,operation) {
     axios.post('http://localhost:8000/cart',neworder)
       .then((response) => {
         console.log('Order completed:', response.data);
-        alert(`order Completed status code ${response.data}`)
+        // alert(`order Completed status code ${response.data}`);
+         navigate("/order-placed");
       })
       .catch((error) => {
         console.error('Error completing order:', error);
@@ -87,7 +98,9 @@ function changeqty(index,operation) {
   }
 
   return (
+    
     <div className='OrderSection' style={{ visibility: orderVisibility }}>
+ 
       <div className='paymentBody'>
         {/* Order Summary */}
         <div className='orderSummary'>
@@ -147,9 +160,10 @@ function changeqty(index,operation) {
           disabled={order.length === 0}
           id='paymentButton'
         >
-          Place the order &amp; Make Payment
+          Place the order
         </Button>
       </div>
+
     </div>
   );
 }

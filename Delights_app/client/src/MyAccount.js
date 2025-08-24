@@ -1,9 +1,29 @@
 import React from 'react'
+import {useState, useEffect } from 'react';
 import './AccountStyle.css'
 import Avatar from '@mui/material/Avatar';
 import { Link } from 'react-router-dom';
 
-function MyAccount() {
+function MyAccount({isAuthenticated}) {
+
+  const [profilePic,setProfilePic] = useState('');
+  const[userName,setUserName] = useState('Guest');
+  const[loginVisibility,setloginVisibility] = useState('none');
+
+    useEffect(
+      ()=>{
+          if(isAuthenticated){
+              const dataString = localStorage.getItem('user');
+              const data = JSON.parse(dataString);
+              console.log(`data is `,data)
+              // console.log(`user is `,user);
+              console.log(`URL is `,data.user.profile_pic);
+              setProfilePic(data.user.profile_pic);
+                setUserName(data.user.user_name);
+                setloginVisibility('hidden');
+          }
+      },[isAuthenticated]
+    )
   return (
     <div className='myAccount'>
 
@@ -12,10 +32,10 @@ function MyAccount() {
 
           <h1>My Account</h1>
             <div className='account-user'>
-                <Avatar alt="Guest name" src="/static/images/avatar/1.jpg" />
-          <h4> Guest</h4>
+                <Avatar alt="Guest name" src={profilePic} />
+          <h4> {userName}</h4>
           {/* <a href=''>sign in</a> */}
-          <Link to='/signin'>Login</Link>
+          <Link to='/signin' style={{visibility:loginVisibility}}>Login</Link>
             </div>
          
 

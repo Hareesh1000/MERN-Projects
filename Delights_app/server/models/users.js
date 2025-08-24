@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema({
     password: { type: String},
     address: [addressSchema],
     login_status: [loginStatusSchema],
+    profile_pic:{type:String,default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXEDpRb81gn93DqLZlqiOgOB62Hgd43NjuVQ&s"}
     
 },
 { timestamps: true});
