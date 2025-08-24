@@ -1,0 +1,173 @@
+body {
+    width:100%;
+    margin:0 auto;
+    padding:0 auto;
+
+}
+
+.hero_section3 {
+    float:left;
+    width:99%;
+     display:flex;
+    flex-direction:row;
+    justify-content:space-evenly;
+    align-items:center;
+    padding:6em 0em;
+    margin: 1.5em auto;
+   
+}
+
+
+.password_image {
+  float:left;
+}
+
+.password_image img {
+    width:100%;
+    height:500px;
+}
+
+.password_page {
+  border: 1px solid rgb(15, 14, 15);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: stretch;
+  padding: 0.1em;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 5px 30px rgba(19, 39, 226, 0.863);
+   
+}
+
+
+
+.forgot_password {
+    float:right;
+    width:30%;
+   margin:0;
+ text-align: left;
+     width: 400px;
+      margin: 2em auto;
+      font-family: Arial, sans-serif;
+      padding:2em 2em;
+
+}
+
+.signup_text{
+     padding:1.1em 0em;
+}
+
+.forgot_password  h2{
+    display:inline;
+   font-family: "Commissioner", sans-serif;
+  font-weight: 500;
+  font-size:28px;
+  position:relative;
+    
+    }
+
+.forgot_password h2::before {
+ content: "";
+  width: 40px;
+  height: 4px;
+  background:  #007bfed2;
+  position: absolute;
+  top: 38px;
+  left: 3px;
+  border-radius: 3px;          
+}
+
+.form_section {
+    position: relative;
+margin: 2.2em 0em 1em 0;  
+text-align: center;
+
+}
+
+.form_section input {
+    width:90%;
+       padding: 1.2em 0.5em 0.5em;
+      font-size: 1em;
+      border: 2px solid #007bfe67;
+    border-radius: 5px;
+      background: none;
+      border:none
+}
+.form_section label {
+    position:absolute;
+    top: 1em;
+      left: 7.5em;
+       padding: 0 0.25em;
+          color: rgb(79, 102, 230);
+      font-size: 1em;
+      transition: 0.2s ease all;
+      background: white;
+
+}
+
+ .form_section input:focus + label
+ {
+    top: -0.6em;
+      left: 1.5em;
+      font-size: 0.75em;
+       color: #007cfe;
+ }
+
+ .reset {
+    display:flex;
+    flex-direction:column;
+    text-align:center;
+    padding:0em 1em;
+
+ }
+
+
+ .reset a {
+color: rgb(75, 87, 155);
+       border-radius:5px;
+       border:none;
+       text-decoration:none;
+       padding:1em 2em;
+       font-weight:350;
+       margin:0.5em 0em;
+ }
+
+ #reset_password:hover {
+
+  /* box-shadow: 0 5px 30px rgba(19, 39, 226, 0.863); */
+    text-decoration:underline; 
+     /* color:rgb(242, 242, 245); */
+      border:0.1px solid rgba(0, 0, 0, 0.103);
+ }
+
+.goBack:hover {
+  text-decoration:underline; 
+ }
+
+
+#signInBtn {
+  cursor: pointer;
+}
+
+
+
+
+ @media(max-width:766px) {
+
+.hero_section {
+  float: left;
+  width: 100%;
+}
+
+
+.password_image {
+  float: left;
+  display: none;
+}
+
+.password_page {
+  border:none;
+}
+
+ }

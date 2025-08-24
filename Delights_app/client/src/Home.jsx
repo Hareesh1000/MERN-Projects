@@ -10,9 +10,11 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 import NavBar from './Navbar';
 
-function Home({setCartItemCount}) {
+function Home({setorderCount,setOrder}) {
   const [products, setProducts] = useState([]);  // products from the database
-  const [cart, setCart] = useState({});  
+  const [filteredProduct,setFilteredProduct] = useState('');
+  const [cart, setCart] = useState({});  //For Cart count   /// Adding to cart
+
 
   const url = "http://localhost:8000";
 
@@ -26,12 +28,38 @@ function Home({setCartItemCount}) {
   }, []);
 
 
+  // Get filtered data
+  useEffect(
+    ()=>{
+
+      if (filteredProduct ==='ALL'){
+        axios.get(url)
+      .then(res => {
+        setProducts(res.data);
+      })
+      }
+        
+      if(filteredProduct){
+        axios.get(`http://localhost:8000/product-type/${filteredProduct}`)
+        .then(
+          (res)=>{
+            const filteredData = res.data;
+            console.log(filteredData);
+            setProducts(filteredData);
+
+          }
+        )
+      }
+    },[filteredProduct]
+  )
+
   const addItems = (product_id) => {
     setCart(prev => ({
       ...prev,
       [product_id]: 1
     }));
   };
+
 
 
   // Increment / Decrement -------------
@@ -48,18 +76,46 @@ function Home({setCartItemCount}) {
       return prev;
     });
   };
-
+/// Adding products to cart-----
   useEffect(() => {
-    const countCart = Object.keys(cart)
-    // console.log("Cart state:", cart);
-    //  console.log("Cart length:", countCart.length);
-    setCartItemCount(countCart.length)
+
+    console.log(`Product data is`,products);    
+    //setOrder(cart)   /// Adding cart items here to view from the cart
+    const productIds = Object.keys(cart);
+    const selectedProducts = products.filter(
+      (item)=>{
+          return( productIds.includes(item.product_id.toString()))
+      }
+    );
+
+    const urlRemovedProducts = selectedProducts.map(
+      ({product_image,...others})=>{
+          return others
+      }
+    )
+
+    const orderedItems = urlRemovedProducts.map(
+      (item)=>{
+        return( {...item,"order_qty":cart[item.product_id.toString()]})
+      }
+    )
+    //  method to send the data through props
+    // setOrder(orderedItems)
+    
+
+    localStorage.setItem('order',JSON.stringify(orderedItems));
+
+    const data = localStorage.getItem('order');
+    console.log(`data is `,data);
+    //cart count to menu
+    setorderCount(productIds.length);
+ 
   }, [cart]);
 
   return (
     <div className='Home'>
       <div className="navbar">
-        <NavBar />
+        <NavBar setFilteredProduct={setFilteredProduct}/>
       </div>
 
       <div className="main">

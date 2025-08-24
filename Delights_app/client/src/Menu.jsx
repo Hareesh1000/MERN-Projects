@@ -20,13 +20,12 @@ import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 
-function MenuBar({cartItemCount}) {
+function MenuBar({orderCount,isAuthenticated,setAuthStatus}) {
 
   
   // -----------cart menu---------------------------   cart menu is disabled, need to develop later
   const [cartAnchorEl, setCartAnchorEl] = React.useState(null);
   const cartOpen = Boolean(cartAnchorEl);
-
   const handleCartClick = (event) => {
     setCartAnchorEl(event.currentTarget);
   };
@@ -36,8 +35,9 @@ function MenuBar({cartItemCount}) {
   };
 
   // ------------------Account menu---------------
-  const [accountAnchorEl, setAccountAnchorEl] = React.useState(null);
+  const [accountAnchorEl, setAccountAnchorEl] = React.useState(null);   /// from material UI
   const accountOpen = Boolean(accountAnchorEl);
+  const [profilePic,setProfilePic] = useState('')
 
   const handleAccountClick = (event) => {
     setAccountAnchorEl(event.currentTarget);
@@ -47,7 +47,21 @@ function MenuBar({cartItemCount}) {
     setAccountAnchorEl(null);
   };
 
-  // -------------------- Styled Badge --------------------
+  useEffect(
+    ()=>{
+        if(isAuthenticated){
+            const dataString = localStorage.getItem('user');
+            const data = JSON.parse(dataString);
+            console.log(`data is `,data)
+            // console.log(`user is `,user);
+            console.log(`URL is `,data.user.profile_pic);
+            setProfilePic(data.user.profile_pic);
+
+        }
+    },[isAuthenticated]
+  )
+
+  // -------------------- Styled Badge ----material UI properties----------------
   const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
       right: -5,
@@ -76,6 +90,8 @@ function MenuBar({cartItemCount}) {
               color="inherit"
               id="signinButton"
               startIcon={<AccountCircleIcon />}
+             component={Link} to='/signin'
+              style={isAuthenticated? {visibility:'hidden'} :{visibility:'none'}}
             >
               Sign In
             </Button>
@@ -88,12 +104,13 @@ function MenuBar({cartItemCount}) {
                   color="inherit"
                   id="cart"
                   onClick={handleCartClick}
+                    component={Link} to='/cart'
                   sx={{ ml: 2 }}
                   aria-controls={cartOpen ? "cart-menu" : undefined}
                   aria-haspopup="true"
                   aria-expanded={cartOpen ? "true" : undefined}
                 >
-                  <StyledBadge badgeContent={cartItemCount} color="secondary">
+                  <StyledBadge badgeContent={orderCount} color="secondary">
                     <ShoppingCartIcon />
                   </StyledBadge>
                 </IconButton>
@@ -140,7 +157,7 @@ function MenuBar({cartItemCount}) {
             </Menu> */}
 
             {/* ACCOUNT BUTTON + MENU */}
-            <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+            <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" ,margin:"0 0.5em"}}>
               <Tooltip title="Account settings">
                 <IconButton
                   onClick={handleAccountClick}
@@ -150,7 +167,7 @@ function MenuBar({cartItemCount}) {
                   aria-haspopup="true"
                   aria-expanded={accountOpen ? "true" : undefined}
                 >
-                  <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                  <Avatar sx={{ width: 32, height: 32 }} src={profilePic} >G</Avatar>
                 </IconButton>
               </Tooltip>
             </Box>
@@ -210,7 +227,7 @@ function MenuBar({cartItemCount}) {
                 </ListItemIcon>
                 Settings
               </MenuItem>
-              <MenuItem onClick={handleAccountClose}>
+              <MenuItem onClick={()=>{handleAccountClose(); setAuthStatus(false); window.location.reload(); localStorage.removeItem('Login')}}>
                 <ListItemIcon>
                   <Logout fontSize="small" />
                 </ListItemIcon>

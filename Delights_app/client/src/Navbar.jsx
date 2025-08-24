@@ -13,12 +13,15 @@ import { useState } from 'react';
 import axios from 'axios'
 
 
- function AlignItemsList() {
+ function AlignItemsList({setFilteredProduct}) {
 
    const url = "http://localhost:8000"
 
   const [productType, setProductType] = useState([]);
 
+  const [changeProduct,setChangeProduct]  = useState('');
+
+  /// Get all data
 useEffect(() => {
   axios.get(url)
     .then(res => {
@@ -38,12 +41,57 @@ useEffect(() => {
     .catch(error => console.log('Error', error));
 }, []);
 
+/// Get only selected data ---------
+
+// useEffect(
+//   ()=>{
+//     try{
+//         if(changeProduct){
+//            axios.get(`http://localhost:8000/product-type/${changeProduct}`)
+//      .then((res) => {
+//        const data = res.data;
+//     const products = data.map(item => item.product_name); 
+//     const newData = [...new Set(products)];
+//     setProductType(newData);
+//     console.log("data is", res.data);
+//         })
+//         }
+//     }
+//     catch(error){
+//       console.log(`Error while fetching product type ${error}`)
+//     }
+//   },[changeProduct]
+// );
+
+useEffect(
+  ()=>{
+        console.log(`Selected product is `,changeProduct);
+  },[changeProduct]
+)
+
+
+
   return (
     <List sx={{ width: '100%', maxWidth: 300, bgcolor: '#f7e9cd98' }} className='menuList'>
+       <div className='menuListItems'>
+        <a onClick={()=>{setFilteredProduct('ALL')}}>
+       <ListItem alignItems="center" >
+        <ListItemAvatar>
+          <Avatar alt='All' src="/static/images/avatar/1.jpg" />
+        </ListItemAvatar>
+        <ListItemText
+          primary='All'
+        />
+      </ListItem>
+      <Divider variant="inset" component="li" />
+    </a>
+
+      </div>
+    
       {productType.map(
-        (item)=>(
-             <div className='menuListItems'>
-        <a >
+        (item,index)=>(
+             <div className='menuListItems' key={index}>
+        <a onClick={()=>{setFilteredProduct(item)}}>
        <ListItem alignItems="center" >
         <ListItemAvatar>
           <Avatar alt={item} src="/static/images/avatar/1.jpg" />
