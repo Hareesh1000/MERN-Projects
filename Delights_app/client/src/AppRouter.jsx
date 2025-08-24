@@ -10,6 +10,7 @@ import Cart from './Cart'
 import { useState } from 'react';
 import axios from 'axios'
 import OrderSuccess from './OrderSuccess';
+import MyOrders from './MyOrder';
 
 function AppRouter() {
 
@@ -44,6 +45,7 @@ function AppRouter() {
             <Route path='/forgot-password' element={<ForgotPassword></ForgotPassword>}></Route>
             <Route path='/cart' element={<Cart placeOrder = {order} isAuthenticated={isAuthenticated}></Cart>}></Route>
             <Route path='/cart/order-placed' element={<OrderSuccess></OrderSuccess>}></Route>
+            <Route path='/my-account/my-orders' element={<MyOrders></MyOrders>} ></Route>
         </Routes>
         
 

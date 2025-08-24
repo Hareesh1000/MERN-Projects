@@ -3,12 +3,14 @@ import {useState, useEffect } from 'react';
 import './AccountStyle.css'
 import Avatar from '@mui/material/Avatar';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function MyAccount({isAuthenticated}) {
 
   const [profilePic,setProfilePic] = useState('');
   const[userName,setUserName] = useState('Guest');
   const[loginVisibility,setloginVisibility] = useState('none');
+  const navigate = useNavigate();
 
     useEffect(
       ()=>{
@@ -43,7 +45,7 @@ function MyAccount({isAuthenticated}) {
 
         <div className='accountCards'>
 
-          <div className='acc-card'>
+          <div className='acc-card' onClick={()=>{navigate('/my-account/my-orders')}}>
             <div className='acc-image'>
               <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1PY8v1p9lqbDmt7_R1lBEubF6bW3gwdnsHw&s'
                 alt='order Box'
