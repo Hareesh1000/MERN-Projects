@@ -80,21 +80,31 @@ function changeqty(index,operation) {
 }
 ///Submit the order --------
   function completeOrder() {
-    localStorage.setItem('order',JSON.stringify(order));
-    const neworder = [{ order: order, total_spent: orderTotal }];
+    const userString = localStorage.getItem('user');
+    const user = JSON.parse(userString)
+    
+    // const neworder = [{ order: order, total_spent: orderTotal }];
 
-    axios.post('http://localhost:8000/cart',neworder)
+    const finalorder = {"customer_id":user.user.user_id, order: order,total_spent: orderTotal  };
+
+    // console.log(`Order is `, finalorder)
+
+
+   localStorage.setItem('order',JSON.stringify(finalorder));
+     console.log(`Order is `, finalorder)
+    axios.post('http://localhost:8000/cart',finalorder)
       .then((response) => {
-        console.log('Order completed:', response.data);
-        // alert(`order Completed status code ${response.data}`);
+        // console.log('Order completed:', response.data);
+        //  alert(`order Completed status code ${response.data}`);
          navigate("/order-placed");
+           setOrderVisibility('hidden');
       })
       .catch((error) => {
         console.error('Error completing order:', error);
         alert(`order failed ${error.data}`)
       });
 
-    setOrderVisibility('hidden');
+  
   }
 
   return (
@@ -156,7 +166,7 @@ function changeqty(index,operation) {
           variant='contained'
           color='primary'
           size='large'
-          onClick={completeOrder}
+          onClick={()=>{completeOrder()}}
           disabled={order.length === 0}
           id='paymentButton'
         >

@@ -23,7 +23,7 @@ function OrderSuccess() {
         >
          Go to main menu
         </Button>
-        <Button variant="outlined" onClick={() => navigate("my-account/my-orders")}>
+        <Button variant="outlined" onClick={() => navigate("/my-account/my-orders")}>
           View Orders
         </Button>
       </div>

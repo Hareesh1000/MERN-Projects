@@ -1,41 +1,155 @@
 .myOrdersContainer {
-  margin: 5em auto;
-  width: 80%;
+  margin: 4em auto;
+  width: 85%;
   max-width: 900px;
   text-align: center;
-  border:2px solid red;
-  padding: 10px 10px;
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.orderCard {
-  margin: 2em 0;
+.myOrdersContainer h2 {
+  font-size: 20px;
+  margin-bottom: 1.5em;
+  color: #333;
+}
+
+.myOrderdiv {
+ display: flex;
+ flex-direction: row;
+ justify-content: flex-start;
+ align-items: center;
+}
+
+.orderdiv1{
+  width: 20%;
+
+}
+
+.orderdiv2{
+  width: 70%;
+
+}
+
+/* Order card */
+.orderCardModern {
+  background: #fff;
+  margin: 1.5em 0;
   padding: 1.5em;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    border:2px solid green;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.orderCard h3 {
+.orderCardModern:hover {
+  /* transform: translateY(-4px); */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Header */
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1em;
-  color: #1976d2;
 }
 
-.orderTable {
-  width: 100%;
-  border-collapse: collapse;
+.orderHeader h3 {
+  margin: 0;
+  color: #1976d2;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #222;
+}
+
+/* Items list */
+.orderItems {
+  margin: 0.5em 0 1em 0;
+}
+
+.orderItem {
+  font-size: 0.95rem;
+  padding: 4px 0;
+  border-bottom: 1px solid #f0f0f0;
+  color: #555;
+}
+
+/* Footer */
+.orderFooter {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #666;
   margin-top: 0.5em;
 }
 
-.orderTable th, .orderTable td {
-  border: 1px solid #ddd;
-  padding: 0.6em 1em;
+.status {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
 }
 
-.orderTable th {
-  background-color: #f5f5f5;
+.status.delivered {
+  background: #e6f9f0;
+  color: #0f8a4b;
 }
+
+.status.pending {
+  background: #fff6e0;
+  color: #a87900;
+}
+
+/* Actions */
+.orderActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.2em;
+}
+
+.ratingBox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.reorderBtn {
+  border-radius: 8px !important;
+  padding: 6px 16px !important;
+  font-size: 0.85rem !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Toggle History */
+.toggleHistoryBtn {
+  margin: 2em auto 0 auto;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #1976d2;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.toggleHistoryBtn:hover {
+  background: #125aa0;
+}
+
 
 .backBtn {
-  margin-top: 2em;
+  margin-top: 2.5em;
 }
+
+

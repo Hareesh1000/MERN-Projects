@@ -57,7 +57,7 @@ async function authenticateUser(req,res) {
         const email = req.body.email
 
         const user = await User.findOne({mail_id:email, active:true},
-                {user_name:1,address:1,profile_pic:1}
+                {user_name:1,address:1,profile_pic:1,user_id:1}
         );
 
 

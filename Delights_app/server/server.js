@@ -15,6 +15,7 @@ app.use(cors());
 app.use('/', productRoute);
 app.use('/cart',ordersRoute)
 app.use('/user',userRoute)
+app.use('/my-orders',ordersRoute)
 
 
 const startServer = async() =>{
