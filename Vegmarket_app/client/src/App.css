@@ -3,7 +3,8 @@
     width: 100%;
     background-color: aqua;
     display: flex;
-    flex-direction: column; /* topbar on top, hero-section below */
+    flex-direction: column;
+    /* topbar on top, hero-section below */
 }
 
 .topBar {
@@ -13,19 +14,103 @@
 
 .hero-section {
     display: flex;
-    flex-direction: row; /* sidebar left, dashboard right */
+    flex-direction: row;
+    /* sidebar left, dashboard right */
     flex: 1;
 }
 
 .sidebar {
     border: 2px solid red;
-    width: 240px;   /* fixed sidebar width */
-    flex-shrink: 0; /* don't let it shrink */
+    width: 240px;
+    /* fixed sidebar width */
+    flex-shrink: 0;
+    /* don't let it shrink */
 }
 
 .dash-main {
     border: 2px solid red;
-    flex: 1;        /* take remaining space */
-    margin: 0;      /* remove big margin */
+    flex: 1;
+    /* take remaining space */
+    margin: 0;
+    /* remove big margin */
     padding: 1em;
 }
+
+
+/*-----------------------Dashborad-------------------*/
+.dashboard {
+    padding: 20px;
+    background-color: #f5f6fa;
+    min-height: 100vh;
+    width: 75%;
+    font-family: 'Roboto', sans-serif;
+    margin: 0 auto;
+}
+
+/* Header cards section */
+.dashboardHead {
+    margin-bottom: 30px;
+}
+
+/* Each card */
+.dashboardHead .MuiPaper-root {
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.dashboardHead .MuiPaper-root:hover {
+    transform: translateY(-5px);
+}
+
+/* Body section (DatePicker) */
+.dashboardBody {
+    margin: 20px 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    flex-direction: row;
+}
+
+/* Search button */
+/* .searchBtn {
+  margin-top: 10px;
+  text-align: left;
+} */
+
+/* .searchBtn .MuiButton-root {
+  padding: 8px 24px;
+  border-radius: 20px;
+  text-transform: none;
+  font-weight: 500;
+} */
+
+/* Table section */
+.table {
+    margin-top: 30px;
+}
+
+.table .MuiPaper-root {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table .MuiTableHead-root {
+    background-color: #1976d2;
+    /* Material blue */
+}
+
+.table .MuiTableHead-root .MuiTableCell-root {
+    color: #fff;
+    font-weight: 600;
+}
+
+.table .MuiTableBody-root .MuiTableRow-root:hover {
+    background-color: #f1f7ff;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/*-----------------------Dashborad  end -------------------*/
