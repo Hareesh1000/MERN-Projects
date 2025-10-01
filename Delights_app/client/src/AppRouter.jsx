@@ -38,6 +38,7 @@ function AppRouter() {
     <div className='appMain'>
         <Menu orderCount={orderCount} isAuthenticated={isAuthenticated}setAuthStatus={setAuthStatus}></Menu>
         <Routes>
+            {/* {isAuthenticated} */}
             <Route path='/' element={<Home setorderCount={setorderCount} setOrder={setOrder} isAuthenticated={isAuthenticated}></Home>}></Route>
             <Route path='/my-account' element={<MyAccount isAuthenticated={isAuthenticated}></MyAccount>}></Route>
             <Route path='/signin' element={<SignIn setAuthStatus={setAuthStatus} ></SignIn>} ></Route>
