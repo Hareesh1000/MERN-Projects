@@ -1,5 +1,8 @@
 const oracledb = require('oracledb');
 
+// Point to Instant Client folder
+oracledb.initOracleClient({ libDir: 'C:\\oracle\\instantclient_19_12' });
+
 // Optional: only needed if Instant Client is not in PATH
 // oracledb.initOracleClient({ libDir: 'C:\\oracle\\instantclient_21_9' });
 
@@ -10,7 +13,7 @@ async function createPool() {
       password: 'analyst',
       connectString: 'localhost:1521/xe',
       poolMin: 1,
-      poolMax: 10,
+      poolMax: 5,
       poolIncrement: 1
     });
     console.log("Oracle DB pool created");

@@ -1,18 +1,14 @@
-const mongoose = require('mongoose');
+const connectDB = require('../config/db');
 
-const ProductSchema = new mongoose.Schema(
-    {
-        product_id:{type:Number},
-        product_name:{type:String},
-        product_type:{type:String},
-        qty:{type:Number},
-        price:{type:Number},
-        product_image:{type:String}
+async function getAllProducts() {
+  const pool = await connectDB();
+  const connection = await pool.getConnection();
+  try {
+    const result = await connection.execute(`SELECT * FROM products`);
+    return result.rows;
+  } finally {
+    await connection.close();
+  }
+}
 
-    }
-)
-
-const Products =  mongoose.model('Product',ProductSchema)
-
-
-module.exports = Products
+module.exports = { getAllProducts };
